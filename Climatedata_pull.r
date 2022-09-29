@@ -26,12 +26,14 @@ for (i in vars) {
     
     # read in the full period of record using aggregated files
     
-    data <- as.numeric(ncvar_get(nc, varid = var,start = start, count))
-    
+    data <- as.numeric(ncvar_get(nc, varid = i,start = start, count))
+    print(paste0(paste0(paste0("Starting on ",arabidopsis_data[j,2])," in "),i))
     for (k in data) {
-    export_data <- rbind(export_data,c(arabidopsis_data[j,2],k))
+    export_data[nrow(export_data)+1,] <- c(arabidopsis_data[j,2],k)
       
     }
-    write.csv(export_data,paste0(paste0("/Users/iananderson/Desktop/TerraClimate-1001Genome/arabidopsis_",i),"_data.csv"), row.names = FALSE)
+    
   }
+  write.csv(export_data,paste0(paste0("/Users/iananderson/Desktop/TerraClimate-1001Genome/arabidopsis_",i),"_data.csv"), row.names = FALSE)
+  print(paste0('writing '),paste0(paste0("/Users/iananderson/Desktop/TerraClimate-1001Genome/arabidopsis_",i),"_data.csv"))
 }
