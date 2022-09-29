@@ -13,14 +13,15 @@ for (i in vars) {
   nc <- nc_open(baseurlagg)
   # if you put opening the thing in the loop every time it takes forever forever. 
   
-  
+  export_data <- data.frame(matrix(ncol = 2, nrow = 0))
+  colnames(export_data) <- c("Line",i)
   
   for (j in 1:nrow(arabidopsis_data)) {
     lon <- ncvar_get(nc, "lon")
     lat <- ncvar_get(nc, "lat")
-    flat = match(abs(lat - j[2]) < 1/48, 1)
+    flat = match(abs(lat - arabidopsis_data[j][3]) < 1/48, 1)
     latindex = which(flat %in% 1)
-    flon = match(abs(lon - j[1]) < 1/48, 1)
+    flon = match(abs(lon - arabidopsis_data[j][4]) < 1/48, 1)
     lonindex = which(flon %in% 1)
     start <- c(lonindex, latindex, 1)
     count <- c(1, 1, -1)
@@ -28,5 +29,11 @@ for (i in vars) {
     # read in the full period of record using aggregated files
     
     data <- as.numeric(ncvar_get(nc, varid = var,start = start, count))
+    
+    for (k in data) {
+    export_data <- rbind(export_data,c(arabidopsis_data[j][2],k))
+      
+    }
+    write.csv(export_data,paste0(paste0("/Users/iananderson/Desktop/TerraClimate-1001Genome/arabidopsis_",i),"_data.csv"), row.names = FALSE)
   }
 }
