@@ -29,7 +29,7 @@ for (i in vars) {
     # read in the full period of record using aggregated files
     print(paste0(paste0(paste0("Starting on ",arabidopsis_data[j,2])," in "),i))
     
-    print("loading data...")
+    print("loading data... this takes forever")
     data <- as.numeric(ncvar_get(nc, varid = i,start = start, count))
    
     
