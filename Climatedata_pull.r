@@ -1,4 +1,4 @@
-arabidopsis_data <- read.csv("/Users/iananderson/Desktop/TerraClimate-1001Genome/availableplantsforclimate.csv",header = TRUE)
+arabidopsis_data <- read.csv("C:\\Users\\ian03\\Desktop\\TerraClimate-1001Genome\\availableplantsforclimate.csv",header = TRUE)
 
 # enter in variable you want to download see: http://thredds.northwestknowledge.net:8080/thredds/terraclimate_aggregated.html
 vars <- list("aet","def","pet","ppt","q","soil","srad","swe","tmax","tmin","vap","ws","vpd","PDSI")
@@ -12,7 +12,7 @@ library('zoo')
 for (i in vars) {
   baseurlagg <- paste0(paste0("http://thredds.northwestknowledge.net:8080/thredds/dodsC/agg_terraclimate_",i),"_1958_CurrentYear_GLOBE.nc")
   nc <- nc_open(baseurlagg)
-  # if you put opening the thing in the loop every time it takes forever forever. 
+  # if you put opening the thing in the Jz loop every time it takes forever forever. 
   
   export_data <- data.frame(matrix(ncol = 4, nrow = 0))
   
@@ -54,6 +54,6 @@ for (i in vars) {
     
   }
   colnames(export_data) <- c("Line",i,"Month","Year")
-  write.csv(export_data,paste0(paste0("/Users/iananderson/Desktop/TerraClimate-1001Genome/arabidopsis_",i),"_data.csv"), row.names = FALSE)
-  print(paste0('writing '),paste0(paste0("/Users/iananderson/Desktop/TerraClimate-1001Genome/arabidopsis_",i),"_data.csv"))
+  write.csv(export_data,paste0(paste0("C:\\Users\\ian03\\Desktop\\TerraClimate-1001Genome\\arabidopsis_",i),"_data.csv"), row.names = FALSE)
+  #print(paste0('writing '),paste0(paste0("C:\\Users\\ian03\\Desktop\\TerraClimate-1001Genome\\TerraClimate-1001Genome\\arabidopsis_",i),"_data.csv"))
 }
